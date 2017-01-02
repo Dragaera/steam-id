@@ -3,14 +3,14 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
-  spec.name          = "CHANGEME"
+  spec.name          = "steam-id"
   spec.version       = '0.0.1'
   spec.authors       = ["Michael Senn"]
   spec.email         = ["michael@morrolan.ch"]
 
-  spec.summary       = %q{CHANGEME}
+  spec.summary       = %q{Convert Steam IDs}
   # spec.description   = %q{}
-  spec.homepage      = "https://bitbucket.org/Lavode/hive-stalker"
+  spec.homepage      = "https://bitbucket.org/Lavode/steamid"
   spec.license       = "Apache-2.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
