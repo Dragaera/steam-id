@@ -19,6 +19,13 @@ glance - what to expact from upgrading to a new version.
 ### Removed
 
 
+## [0.1.1] - 2017-01-02
+
+### Fixed
+
+- Implements missing SteamID::SteamID.from_string method.
+
+
 ## [0.1.0] - 2017-01-02
 
 ### Added
