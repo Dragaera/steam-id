@@ -18,3 +18,17 @@ glance - what to expact from upgrading to a new version.
 
 ### Removed
 
+
+## [0.1.0] - 02.01.2017
+
+### Added
+
+- Module to allow conversion of SteamIDs into account IDs suitable for e.g.
+  Hive 2 API calls.
+
+  Supported are:
+  - Steam ID
+  - Steam ID 3
+  - Steam ID 64
+  - Community URL
+  - Profile URL
