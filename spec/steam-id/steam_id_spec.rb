@@ -10,44 +10,79 @@ module SteamID
 
     STEAM_ID_64      = '76561198008487038'
 
-    describe '::from_string' do
+    COMMUNITY_URL = 'http://steamcommunity.com/profiles/76561198008487038'
+
+    describe '::from_steam_id' do
       it 'supports SteamID as input' do
-        steam_id = SteamID.from_string(STEAM_ID)
+        steam_id = SteamID.from_steam_id(STEAM_ID)
         expect(steam_id).to eq 48221310
 
-        steam_id = SteamID.from_string(STEAM_ID_SHORT)
+        steam_id = SteamID.from_steam_id(STEAM_ID_SHORT)
         expect(steam_id).to eq 5382724
       end
 
       it 'supports SteamID 3 as input' do
-        steam_id = SteamID.from_string(STEAM_ID_3)
+        steam_id = SteamID.from_steam_id(STEAM_ID_3)
         expect(steam_id).to eq 48221310
 
-        steam_id = SteamID.from_string(STEAM_ID_3_SHORT)
+        steam_id = SteamID.from_steam_id(STEAM_ID_3_SHORT)
         expect(steam_id).to eq 4584616
       end
 
       it 'is not case-sensitive' do
-        steam_id = SteamID.from_string(STEAM_ID_MIXED)
+        steam_id = SteamID.from_steam_id(STEAM_ID_MIXED)
         expect(steam_id).to eq 48221310
 
-        steam_id = SteamID.from_string(STEAM_ID_3_LOWER)
+        steam_id = SteamID.from_steam_id(STEAM_ID_3_LOWER)
         expect(steam_id).to eq 48221310
       end
 
 
       it 'supports SteamID 64 as input' do
-        steam_id = SteamID.from_string(STEAM_ID_64)
+        steam_id = SteamID.from_steam_id(STEAM_ID_64)
         expect(steam_id).to eq 48221310
       end
 
       it 'supports an account ID as input' do
-        steam_id = SteamID.from_string(48221310)
+        steam_id = SteamID.from_steam_id(48221310)
         expect(steam_id).to eq 48221310
       end
 
       it 'raises an exception upon invalid input' do
-        expect { SteamID.from_string('foobar') }.to raise_error(ArgumentError)
+        expect { SteamID.from_steam_id('foobar') }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe '::from_community_url' do
+      it 'supports community URLs as input' do
+        steam_id = SteamID.from_community_url(COMMUNITY_URL)
+        expect(steam_id).to eq 48221310
+      end
+
+      it 'raises an exception upon invalid input' do
+        expect { SteamID.from_community_url('http://google.com/profiles/foo') }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe '::from_vanity_url' do
+      it 'supports custom URLs as input' do
+          expect(::SteamId).to receive(:resolve_vanity_url) { 54321 }
+          expect(SteamID).to receive(:from_steam_id) { 12345 }
+
+          expect(SteamID.from_vanity_url('some-test', steam_api_key: nil)).to eq 12345
+      end
+
+      it 'supports full custom URLs as input' do
+          expect(::SteamId).to receive(:resolve_vanity_url) { 54321 }
+          expect(SteamID).to receive(:from_steam_id) { 12345 }
+
+          expect(SteamID.from_vanity_url('http://steamcommunity.com/id/some-test', steam_api_key: nil)).to eq 12345
+      end
+
+      it 'raises an exception if it could not resolve the ID' do
+          expect(::SteamId).to receive(:resolve_vanity_url) { nil }
+
+          expect{ SteamID.from_vanity_url('this-better-not-be-a-valid-url', steam_api_key: nil) }.to raise_error(ArgumentError)
       end
     end
   end
