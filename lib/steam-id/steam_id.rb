@@ -82,7 +82,32 @@ module SteamID
       raise ArgumentError, "#{ id.inspect } is not a supported SteamID."
     end
 
-    def self.from_string(s)
+    def self.from_string(s, steam_api_key: nil)
+      account_id = nil
+
+      # Todo: Refactor
+      begin
+        # Checking for Steam ID first. Most restrictive check, and also does
+        # not require a call to Steam Web API.
+        account_id = from_steam_id(s)
+      rescue ArgumentError
+        begin
+          # Community URL afterwards, does not require an API call either.
+          account_id = from_community_url(s)
+        rescue ArgumentError
+          begin
+            # Trying to resolve as custom/vanity URL now.
+            account_id = from_vanity_url(s, steam_api_key: steam_api_key)
+          rescue ArgumentError
+          end
+        end
+      end
+
+      if account_id.nil?
+        raise ArgumentError, "Could not convert #{ s } to account id."
+      else
+        account_id
+      end
     end
   end
 end
