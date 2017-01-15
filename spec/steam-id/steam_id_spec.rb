@@ -46,6 +46,10 @@ module SteamID
       it 'supports an account ID as input' do
         steam_id = SteamID.from_steam_id(48221310)
         expect(steam_id).to eq 48221310
+
+        # Special case, starts with 765, like a Steam ID
+        steam_id = SteamID.from_steam_id(7654321)
+        expect(steam_id).to eq 7654321
       end
 
       it 'raises an exception upon invalid input' do
