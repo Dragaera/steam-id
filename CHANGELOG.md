@@ -12,6 +12,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Fixed handling of account IDs starting with 765.
+
 ### Security
 
 ### Deprecated
