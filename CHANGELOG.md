@@ -8,6 +8,8 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- Support for brackets in SteamID 3 format, e.g. `[U:1:123456]`
+
 ### Changed
 
 ### Fixed

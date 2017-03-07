@@ -4,9 +4,10 @@ module SteamID
     STEAM_ID_MIXED   = 'SteAM_0:0:24110655'
     STEAM_ID_SHORT   = 'STEAM_1:0:2691362'
 
-    STEAM_ID_3       = 'U:1:48221310'
-    STEAM_ID_3_LOWER = 'u:1:48221310'
-    STEAM_ID_3_SHORT = 'U:1:4584616'
+    STEAM_ID_3          = 'U:1:48221310'
+    STEAM_ID_3_LOWER    = 'u:1:48221310'
+    STEAM_ID_3_SHORT    = 'U:1:4584616'
+    STEAM_ID_3_BRACKETS = '[U:1:48221310]'
 
     STEAM_ID_64      = '76561198008487038'
 
@@ -23,6 +24,9 @@ module SteamID
 
       it 'supports SteamID 3 as input' do
         steam_id = SteamID.from_steam_id(STEAM_ID_3)
+        expect(steam_id).to eq 48221310
+
+        steam_id = SteamID.from_steam_id(STEAM_ID_3_BRACKETS)
         expect(steam_id).to eq 48221310
 
         steam_id = SteamID.from_steam_id(STEAM_ID_3_SHORT)
