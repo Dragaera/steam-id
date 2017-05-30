@@ -13,6 +13,7 @@ module SteamID
     PATTERN_ACCOUNT_ID = /^[0-9]+$/
 
     PATTERN_COMMUNITY_URL = /^https?:\/\/steamcommunity\.com\/profiles\/(765[0-9]+)\/?$/
+    PATTERN_COMMUNITY_URL_STEAM_ID_3 = /^https?:\/\/steamcommunity\.com\/profiles\/\[U:([0-9]{1,2}):([0-9]+)\]$/i
     PATTERN_CUSTOM_URL = /^https?:\/\/steamcommunity\.com\/id\/([^\/]+)\/?$/
 
     # Resolve custom URL into account ID suitable for API calls.
@@ -43,6 +44,10 @@ module SteamID
     def self.from_community_url(url)
       PATTERN_COMMUNITY_URL.match(url) do |m|
         return self.from_steam_id(m[1])
+      end
+
+      PATTERN_COMMUNITY_URL_STEAM_ID_3.match(url) do |m|
+        return self.from_steam_id(m[2])
       end
 
       raise ArgumentError, "#{ url.inspect } is not a supported community URL."

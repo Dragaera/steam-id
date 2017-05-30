@@ -12,6 +12,7 @@ module SteamID
     STEAM_ID_64      = '76561198008487038'
 
     COMMUNITY_URL = 'http://steamcommunity.com/profiles/76561198008487038'
+    COMMUNITY_URL_STEAM_ID_3 = 'http://steamcommunity.com/profiles/[U:1:48221310]'
 
     describe '::from_steam_id' do
       it 'supports SteamID as input' do
@@ -64,6 +65,11 @@ module SteamID
     describe '::from_community_url' do
       it 'supports community URLs as input' do
         steam_id = SteamID.from_community_url(COMMUNITY_URL)
+        expect(steam_id).to eq 48221310
+      end
+
+      it 'supports community URLs with SteamID3 as input' do
+        steam_id = SteamID.from_community_url(COMMUNITY_URL_STEAM_ID_3)
         expect(steam_id).to eq 48221310
       end
 
