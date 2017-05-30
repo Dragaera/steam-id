@@ -8,8 +8,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
-- Support for community URLs containing Steam ID3.
-
 ### Changed
 
 ### Fixed
@@ -19,6 +17,13 @@ glance - what to expact from upgrading to a new version.
 ### Deprecated
 
 ### Removed
+
+
+## [0.3.0] - 2017-05-30
+
+### Added
+
+- Support for community URLs containing Steam ID3.
 
 
 ## [0.2.0] - 2017-03-07
