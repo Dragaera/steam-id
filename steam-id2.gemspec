@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Convert Steam IDs}
   # spec.description   = %q{}
-  spec.homepage      = "https://bitbucket.org/Lavode/steamid"
+  spec.homepage      = "https://github.com/Dragaera/steam-id"
   spec.license       = "Apache-2.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
