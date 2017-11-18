@@ -8,6 +8,11 @@ glance - what to expact from upgrading to a new version.
 
 ### Added
 
+- `SteamID::SteamID` class representing a single Steam ID.
+- `Parser` class allowing to parse various formats of Steam IDs into their
+  respective account ID.
+- `SteamID#from_string` convenience method.
+
 ### Changed
 
 ### Fixed
