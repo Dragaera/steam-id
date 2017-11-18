@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module SteamID
   RSpec.describe Parser do
     # API calls are mocked out, hence we can use a fake key.

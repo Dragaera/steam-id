@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module SteamID
   RSpec.describe SteamID do
     let(:steam_id) { SteamID.new(48221310) }
