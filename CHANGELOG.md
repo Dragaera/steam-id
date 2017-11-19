@@ -12,13 +12,18 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Missing functionality of `SteamID.from_string`.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.4.1]
+
+### Fixed
+
+- Missing functionality of `SteamID.from_string`.
 
 
 ## [0.4.0]
