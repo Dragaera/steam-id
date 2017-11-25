@@ -58,7 +58,7 @@ module SteamID
         rescue ArgumentError
           begin
             # Trying to resolve as custom/vanity URL now.
-            account_id = from_vanity_url(s, steam_api_key: steam_api_key)
+            account_id = from_vanity_url(s)
           rescue ArgumentError
           end
         end

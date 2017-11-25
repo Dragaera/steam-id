@@ -19,6 +19,36 @@ module SteamID
     COMMUNITY_URL = 'http://steamcommunity.com/profiles/76561198008487038'
     COMMUNITY_URL_STEAM_ID_3 = 'http://steamcommunity.com/profiles/[U:1:48221310]'
 
+    describe '::from_string' do
+      # Detailed specs per-type further down.
+      it 'supports Steam ID as input' do
+        steam_id = parser.from_string(STEAM_ID)
+        expect(steam_id.account_id).to eq 48221310
+      end
+
+      it 'supports Steam ID 3 as input' do
+        steam_id = parser.from_string(STEAM_ID_3)
+        expect(steam_id.account_id).to eq 48221310
+      end
+
+      it 'supports Steam ID 64 as input' do
+        steam_id = parser.from_string(STEAM_ID_64)
+        expect(steam_id.account_id).to eq 48221310
+      end
+
+      it 'supports community URLs as input' do
+        steam_id = parser.from_string(COMMUNITY_URL)
+        expect(steam_id.account_id).to eq 48221310
+      end
+
+      it 'supports vanity URLs as input' do
+        expect(::SteamId).to receive(:resolve_vanity_url) { 10000 }
+
+        steam_id = parser.from_string('random-string')
+        expect(steam_id.account_id).to eq 10000
+      end
+    end
+
     describe '::from_steam_id' do
       it 'supports SteamID as input' do
         steam_id = parser.from_steam_id(STEAM_ID)
@@ -86,9 +116,9 @@ module SteamID
     describe '::from_vanity_url' do
       it 'supports custom URLs as input' do
           expect(::SteamId).to receive(:resolve_vanity_url) { 54321 }
-          expect(parser).to receive(:from_steam_id) { 12345 }
 
-          expect(parser.from_vanity_url('some-test')).to eq 12345
+          steam_id = parser.from_vanity_url('some-test')
+          expect(steam_id.account_id).to eq 54321
       end
 
       it 'supports full custom URLs as input' do

@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Fix `SteamID::Parser#from_string` throwing an exception when resolving a
+  vanity URL.
+
 ### Security
 
 ### Deprecated
