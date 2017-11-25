@@ -12,9 +12,6 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Fix `SteamID::Parser#from_string` throwing an exception when resolving a
-  vanity URL.
-
 ### Security
 
 ### Deprecated
@@ -22,14 +19,22 @@ glance - what to expact from upgrading to a new version.
 ### Removed
 
 
-## [0.4.1]
+## [0.4.2] - 2017-11-25
+
+### Fixed
+
+- Fix `SteamID::Parser#from_string` throwing an exception when resolving a
+  vanity URL.
+
+
+## [0.4.1] - 2017-11-19
 
 ### Fixed
 
 - Missing functionality of `SteamID.from_string`.
 
 
-## [0.4.0]
+## [0.4.0] - 2017-11-18
 
 ### Added
 
