@@ -12,14 +12,19 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Handle non-ASCII vanity URLs by throwing an exception instead of failing when
-  creating an URL.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.4.3] - 2017-11-30
+
+### Fixed
+
+- Handle non-ASCII vanity URLs by throwing an exception instead of failing when
+  creating an URL.
 
 
 ## [0.4.2] - 2017-11-25
