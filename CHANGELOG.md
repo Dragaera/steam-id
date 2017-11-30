@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Handle non-ASCII vanity URLs by throwing an exception instead of failing when
+  creating an URL.
+
 ### Security
 
 ### Deprecated
