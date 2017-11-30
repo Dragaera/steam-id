@@ -124,13 +124,14 @@ module SteamID
 
     # Create SteamID object based on custom URL. Note that this requires the
     # API key to be set.
-    # @param url [String] custom URL: 
+    # @param url [String] custom URL - must be ASCII: 
     #   - http://steamcommunity.com/id/some-custom-url
     #   - some-custom-url
     # @return [SteamID]
     # @raise [ArgumentError] If the supplied string was not a valid custom URL.
     # @raise [WebApiError] If the Steam API returned an error.
     def from_vanity_url(url)
+      raise ArgumentError, "Vanity URL must be ASCII." unless url.ascii_only?
       PATTERN_CUSTOM_URL.match(url) do |m|
         url = m[1]
       end
