@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Handle vanity URLs which can't be part of a valid URI by throwing an
+  exception instead of failing when creating an URL.
+
 ### Security
 
 ### Deprecated

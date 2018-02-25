@@ -6,6 +6,8 @@ module SteamID
   # Create SteamID objects based on numeric or string-based Steam ID inputs.
   # @see SteamID
   class Parser
+    STEAM_CUSTOM_URL_BASE = 'https://steamcommunity.com/id/%s'
+
     # Pattern to match classical Steam IDs (STEAM_0:...)
     PATTERN_STEAM_ID = /^STEAM_[0-9]:([0-9]):([0-9]+)$/i
     # Pattern to match Steam ID 3 format ([U:1:...])
@@ -131,9 +133,14 @@ module SteamID
     # @raise [ArgumentError] If the supplied string was not a valid custom URL.
     # @raise [WebApiError] If the Steam API returned an error.
     def from_vanity_url(url)
-      raise ArgumentError, "Vanity URL must be ASCII." unless url.ascii_only?
       PATTERN_CUSTOM_URL.match(url) do |m|
         url = m[1]
+      end
+
+      begin
+        URI(STEAM_CUSTOM_URL_BASE % url)
+      rescue URI::InvalidURIError
+        raise ArgumentError, "#{ url } can't be part of a valid URI."
       end
 
       steam_id = SteamId.resolve_vanity_url(url)
