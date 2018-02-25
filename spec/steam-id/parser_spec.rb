@@ -137,6 +137,11 @@ module SteamID
       it 'raises an exception on non-ascii inputs' do
         expect { parser.from_vanity_url('CЯaZyCAT') }.to raise_error ArgumentError
       end
+
+      it 'raises an exception on invalid inputs' do
+        expect { parser.from_vanity_url('#1 best') }.to raise_error ArgumentError
+        expect { parser.from_vanity_url('https://steamcommunity.com/id/#1 best') }.to raise_error ArgumentError
+      end
     end
   end
 end
