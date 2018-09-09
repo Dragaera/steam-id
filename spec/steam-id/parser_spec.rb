@@ -31,31 +31,9 @@ module SteamID
         expect(steam_id.account_id).to eq 48221310
       end
 
-      context 'with a Steam ID 64' do
-        it 'supports those in the normal range as input' do
-          steam_id = parser.from_string(STEAM_ID_64)
-          expect(steam_id.account_id).to eq 48221310
-        end
-
-        it 'supports those lowered by multiples of 2**32' do
-          id = STEAM_ID_64.to_i
-
-          steam_id = parser.from_string(id - 1 * 2**32)
-          expect(steam_id.account_id).to eq 48221310
-
-          steam_id = parser.from_string(id - 3 * 2**32)
-          expect(steam_id.account_id).to eq 48221310
-        end
-
-        it 'supports those increased by multiples of 2**32' do
-          id = STEAM_ID_64.to_i
-
-          steam_id = parser.from_string(id + 1 * 2**32)
-          expect(steam_id.account_id).to eq 48221310
-
-          steam_id = parser.from_string(id + 4 * 2**32)
-          expect(steam_id.account_id).to eq 48221310
-        end
+      it 'supports SteamID 64 as input' do
+        steam_id = parser.from_string(STEAM_ID_64)
+        expect(steam_id.account_id).to eq 48221310
       end
 
       it 'supports community URLs as input' do
@@ -99,10 +77,31 @@ module SteamID
         expect(steam_id.account_id).to eq 48221310
       end
 
+      context 'with a Steam ID 64' do
+        it 'supports those in the normal range as input' do
+          steam_id = parser.from_steam_id(STEAM_ID_64)
+          expect(steam_id.account_id).to eq 48221310
+        end
 
-      it 'supports SteamID 64 as input' do
-        steam_id = parser.from_steam_id(STEAM_ID_64)
-        expect(steam_id.account_id).to eq 48221310
+        it 'supports those lowered by multiples of 2**32' do
+          id = STEAM_ID_64.to_i
+
+          steam_id = parser.from_steam_id(id - 1 * 2**32)
+          expect(steam_id.account_id).to eq 48221310
+
+          steam_id = parser.from_steam_id(id - 3 * 2**32)
+          expect(steam_id.account_id).to eq 48221310
+        end
+
+        it 'supports those increased by multiples of 2**32' do
+          id = STEAM_ID_64.to_i
+
+          steam_id = parser.from_steam_id(id + 1 * 2**32)
+          expect(steam_id.account_id).to eq 48221310
+
+          steam_id = parser.from_steam_id(id + 4 * 2**32)
+          expect(steam_id.account_id).to eq 48221310
+        end
       end
 
       it 'supports an account ID as input' do
