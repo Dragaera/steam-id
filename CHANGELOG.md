@@ -12,14 +12,19 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
-- Handle ID 64s exceeding allowed range, by adding/subtracting multiples of
-  range until fitting.
-
 ### Security
 
 ### Deprecated
 
 ### Removed
+
+
+## [0.4.5] - 2018-09-09
+
+### Fixed
+
+- Handle ID 64s exceeding allowed range, by adding/subtracting multiples of
+  range until fitting.
 
 
 ## [0.4.4] - 2018-03-25
