@@ -12,6 +12,9 @@ glance - what to expact from upgrading to a new version.
 
 ### Fixed
 
+- Handle ID 64s exceeding allowed range, by adding/subtracting multiples of
+  range until fitting.
+
 ### Security
 
 ### Deprecated

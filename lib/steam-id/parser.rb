@@ -96,7 +96,8 @@ module SteamID
       end
 
       PATTERN_STEAM_ID_64.match(id) do |m|
-        return SteamID.new(m[1].to_i - SteamID::ID_64_OFFSET)
+        id = steam_id_64_to_account_id(m[1].to_i)
+        return SteamID.new(id)
       end
 
       # Matching this one last, as not to catch an ID 64 on accident.
@@ -149,6 +150,25 @@ module SteamID
       else
         from_steam_id(steam_id)
       end
+    end
+
+    private
+    def steam_id_64_to_account_id(id_64)
+      account_id = id_64 - SteamID::ID_64_OFFSET
+
+      # Assuming the range to be [1, 2**32]. But in reality, who knows.
+      # /profiles/#{ ID_64_OFFSET } URL (as well as offsets of 2**32 thereof)
+      # currently redirect to one's signed-in profile, so seems to have some
+      # meta meaning.
+      while account_id < 1
+        account_id += 2**32
+      end
+
+      while account_id > 2**32
+        account_id -= 2**32
+      end
+
+      account_id
     end
   end
 end
