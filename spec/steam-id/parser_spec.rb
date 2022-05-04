@@ -42,7 +42,7 @@ module SteamID
       end
 
       it 'supports vanity URLs as input' do
-        expect(::SteamId).to receive(:resolve_vanity_url) { 10000 }
+        expect(SteamCondenser::Community::SteamId).to receive(:resolve_vanity_url) { 10000 }
 
         steam_id = parser.from_string('random-string')
         expect(steam_id.account_id).to eq 10000
@@ -136,21 +136,21 @@ module SteamID
 
     describe '::from_vanity_url' do
       it 'supports custom URLs as input' do
-          expect(::SteamId).to receive(:resolve_vanity_url) { 54321 }
+          expect(SteamCondenser::Community::SteamId).to receive(:resolve_vanity_url) { 54321 }
 
           steam_id = parser.from_vanity_url('some-test')
           expect(steam_id.account_id).to eq 54321
       end
 
       it 'supports full custom URLs as input' do
-          expect(::SteamId).to receive(:resolve_vanity_url) { 54321 }
+          expect(SteamCondenser::Community::SteamId).to receive(:resolve_vanity_url) { 54321 }
           expect(parser).to receive(:from_steam_id) { 12345 }
 
           expect(parser.from_vanity_url('http://steamcommunity.com/id/some-test')).to eq 12345
       end
 
       it 'raises an exception if it could not resolve the ID' do
-          expect(::SteamId).to receive(:resolve_vanity_url) { nil }
+          expect(SteamCondenser::Community::SteamId).to receive(:resolve_vanity_url) { nil }
 
           expect{ parser.from_vanity_url('this-better-not-be-a-valid-url') }.to raise_error(ArgumentError)
       end

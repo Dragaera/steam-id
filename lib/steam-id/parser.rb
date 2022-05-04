@@ -32,7 +32,7 @@ module SteamID
     def initialize(api_key: nil)
       @api_key = api_key
       if api_key
-        ::WebApi.api_key = @api_key.to_s
+        SteamCondenser::Community::WebApi.api_key = @api_key.to_s
       end
     end
 
@@ -44,7 +44,7 @@ module SteamID
     # @see Parser#from_vanity_url Supported formats of vanity URLs
     # @return [SteamID]
     # @raise [ArgumentError] If the supplied string was not a valid custom URL.
-    # @raise [WebApiError] If the Steam API returned an error.
+    # @raise [SteamCondenser::Error::WebApi] If the Steam API returned an error.
     def from_string(s)
       account_id = nil
 
@@ -54,14 +54,17 @@ module SteamID
         # not require a call to Steam Web API.
         account_id = from_steam_id(s)
       rescue ArgumentError
+        puts "No direct Steam ID conversion possible, trying community"
         begin
           # Community URL afterwards, does not require an API call either.
           account_id = from_community_url(s)
         rescue ArgumentError
+          puts "no community url possible, trying vanity"
           begin
             # Trying to resolve as custom/vanity URL now.
             account_id = from_vanity_url(s)
           rescue ArgumentError
+            puts 'vanity failed'
           end
         end
       end
@@ -132,7 +135,7 @@ module SteamID
     #   - some-custom-url
     # @return [SteamID]
     # @raise [ArgumentError] If the supplied string was not a valid custom URL.
-    # @raise [WebApiError] If the Steam API returned an error.
+    # @raise [SteamCondenser::Error::WebApi] If the Steam API returned an error.
     def from_vanity_url(url)
       PATTERN_CUSTOM_URL.match(url) do |m|
         url = m[1]
@@ -144,7 +147,7 @@ module SteamID
         raise ArgumentError, "#{ url } can't be part of a valid URI."
       end
 
-      steam_id = SteamId.resolve_vanity_url(url)
+      steam_id = SteamCondenser::Community::SteamId.resolve_vanity_url(url)
       if steam_id.nil?
         raise ArgumentError, "#{ url } was not a valid custom URL."
       else
